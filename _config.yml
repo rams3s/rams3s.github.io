@@ -4,7 +4,7 @@
 # IMPORTANT: Set the URL of your site.
 # Set to https://<username>.github.io when hosting on GitHub Pages
 # (unless you are using a custom domain).
-# url:                   https://<username>.github.io
+url:                   https://rams3s.github.io
 
 # IMPORTANT: Set The "base URL" of your site.
 # When your site sits in a subdirectory, set to /<name of directory>
@@ -12,44 +12,41 @@
 # Use the empty string '' otherwise.
 # For GitHub project sites, this is usually the name of the project,
 # e.g. `/hydejack`.
-# baseurl:               ''
+baseurl:               ''
 
 # Language of your content in 2-letter code, e.g.: en, de.
 # You may also provide a location, e.g.: en-us, de_AT.
 lang:                  en
 
 # The title of your blog. Used in the sidebar and the browser tab.
-title:                 Hydejack Starter Kit
+title:                 Rams3s Blog
 
 # A short description (~150 chars) of the page used for the meta description tag.
 # Can use markdown, but no more than one paragraph (enforced by `>`)
 description:           >
-  A Jekyll theme with JavaScript powers. "Best Theme by a Mile".
-  Combines the best of static sites and modern web apps.
-  Open `_config.yml` to edit this text.
+  Rams3s Blog. Rendering, gamedev, performance and c++.
 
 # A shorter description for the sidebar.
 tagline:               >
-  Open `_config.yml` to edit this text.
+  Rendering, Gamedev, Performance and C++."
 
 # A list of keywords for your blog.
-keywords:              []
+keywords:              [rendering,raytracing,gamedev,performance,cpp]
 
 # Used by jekyll-seo-tag.
-logo:                  /assets/icons/icon.png
+logo:                  /assets/img/rams3s.jpg
 
 # This should be the same author as first entry in `_data/authors.yml`.
 author:
   # Used by `jekyll-feed`:
-  name:                <firstname> <lastname>
-  email:               <mail@domain.tld>
+  name:                Ramses Ladlani
+  email:               rladlani@gmail.com
   # Used by `jekyll-seo-tag`:
-  # twitter:             <username>
+  twitter:             Rams3s
 
 # This text will appear in a `<small>` tag in the footer of every page.
 copyright:             >
   © 2018. All rights reserved.
-  Open `_config.yml` to edit this text.
 
 # Add links to the footer.
 # Typically you'll want to link to your impress, cookies or privacy policy, etc.
@@ -64,14 +61,13 @@ permalink:             /:categories/:year-:month-:day-:title/
 
 # Pagination configuration (used by the `blog` layout)
 paginate:              5
-paginate_path:         /page-:num/
-
+paginate_path:         /blog/page-:num/
 
 # Customizaton
 # ========================================================================================
 
 # Sidebar image and theme color of the site.
-accent_image:          /assets/img/sidebar-bg.jpg
+accent_image:          /assets/img/sidebar-bg2.jpg
 accent_color:          rgb(79,177,186)
 
 # This is used for the `theme-color` meta tag,
@@ -120,7 +116,7 @@ defaults:
 
 # Setting a disqus shortname will enable the comment section on
 # pages with `comments: true` in the front matter.
-# disqus:                <disqus_shortname>
+disqus:                Rams3s
 
 # Setting a tinyletter username will enable the newsletter subscription box.
 # PRO version only!
@@ -245,8 +241,8 @@ remote_theme: qwtel/hydejack@v8.1.1
 #   yandex:              <verification-id>
 
 # Used for Twitter cards
-# twitter:
-#   username:            <twitter handle>
+twitter:
+  username:            Rams3s
 
 # Used for Facebook open graph
 # facebook:
