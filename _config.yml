@@ -24,14 +24,14 @@ title:                 Rams3s Blog
 # A short description (~150 chars) of the page used for the meta description tag.
 # Can use markdown, but no more than one paragraph (enforced by `>`)
 description:           >
-  Rams3s Blog. Rendering, gamedev, performance and c++.
+  Rams3s Blog. Rendering, gamedev, performance and C++/C#.
 
 # A shorter description for the sidebar.
 tagline:               >
-  Rendering, Gamedev, Performance and C++.
+  Rendering, Gamedev, Performance and C++/C#.
 
 # A list of keywords for your blog.
-keywords:              [rendering,raytracing,gamedev,performance,cpp]
+keywords:              [rendering,raytracing,gamedev,performance,cpp,c++,c#]
 
 # Used by jekyll-seo-tag.
 logo:                  /assets/img/rams3s.jpg
@@ -46,7 +46,7 @@ author:
 
 # This text will appear in a `<small>` tag in the footer of every page.
 copyright:             >
-  © 2018. All rights reserved.
+  © 2019. All rights reserved.
 
 # Add links to the footer.
 # Typically you'll want to link to your impress, cookies or privacy policy, etc.
@@ -155,7 +155,7 @@ hydejack:
 
   # Code blocks and tables "break" the layout by spanning the full available width.
   # Set this to true if you want them to be the same width as other content.
-  no_break_layout:     false
+  no_break_layout:     true
 
   # Set to `true` if you do not want to expose your resume and projects
   # in machine-readable formats.

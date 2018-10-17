@@ -1,1 +1,8 @@
 // You can add CSS rules here that will be inlucded in Hydejack's CSS file
+
+html {
+    font-size: 12px;
+    @media screen and (min-width: 42em) {
+        font-size: 14px;
+    }
+}

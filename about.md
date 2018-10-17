@@ -17,11 +17,13 @@ menu: true
 order: 4
 ---
 
-My name is Ramses and I am a engine/graphics programmer with 10+ years experience in the game industry.
+My name is Ramses and I am a engine/graphics programmer with 15 years of professional experience (13 in the video game industry).
 
-I am currently CTO at [Fishing Cactus](http://www.fishingcactus.com), an independent video game company located in Belgium.
+I am currently CTO at [Fishing Cactus](http://www.fishingcactus.com), an independent video game company based in Belgium.
 
 Previously, I worked at [10Tacle Studios](http://www.10tacle.be/) and as a freelance ([SoftKinetic](https://en.wikipedia.org/wiki/Softkinetic), ...).
+
+C++ is my native language but I also speak fluent C#, Lua and Haxe. Also proficient in Javascript and Java. 
 
 My main interests are:
 - realtime rendering
