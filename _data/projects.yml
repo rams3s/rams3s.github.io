@@ -1,5 +1,6 @@
 - name: Engines / Frameworks
 
+  color: 00FF00
   projects:
 
   - name: OpenFL
@@ -53,6 +54,7 @@
 
 - name: Games
 
+  color: FF0000
   projects:
 
   # - name: Wormworld Saga
@@ -234,6 +236,7 @@
 
 - name: Credits
 
+  color: 0000FF
   projects:
 
   - name: Algobot

@@ -13,7 +13,8 @@ order: 2
 ## {{category.name}}
 
 <section class="cd-timeline js-cd-timeline">
-  <div class="cd-timeline__container">
+  <style>#id{{category.color}}::before { background:#{{category.color}}; }</style>
+  <div class="cd-timeline__container" id="id{{category.color}}">
 {% for project in category.projects %}
     <div class="cd-timeline__block js-cd-block">
       <div class="cd-timeline__img cd-timeline__img--picture js-cd-img">
