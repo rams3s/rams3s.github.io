@@ -14,7 +14,7 @@ Just before the holiday season, we (at [Fishing Cactus](https://www.fishingcactu
 
 This blog post is a summary of the notes I took, *slightly* reordered and annotated with some code samples (copied from the official [ECS Samples repository](https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation/index.md)) to illustrate how these concepts translate into C#.
 
-![](../../assets/img/blog/ecs_deep_dive/1.png)
+[![](../../assets/img/blog/ecs_deep_dive/1.png)](../../assets/img/blog/ecs_deep_dive/1b.jpg)
 
 This talk was also given during Unite Los Angeles 2018 and the slides are available here: <https://docs.google.com/presentation/d/1vxE61D_N79cvgUI3eIocF2n4rn04wjgRRq00ugyoB1M/edit?usp=sharing>
 
@@ -27,7 +27,7 @@ This talk was also given during Unite Los Angeles 2018 and the slides are availa
 
 Let's start with a quick recap of what ECS is and what advantages its brings with it.
 
-![](../../assets/img/blog/ecs_deep_dive/2.png)
+[![](../../assets/img/blog/ecs_deep_dive/2.png)](../../assets/img/blog/ecs_deep_dive/2b.jpg)
 
 Traditional (and often poorly written, see note below) OOP in video games sees entities as containers for components.
 This often results in poor scaling with the number of entities because these components are often spread all over the memory, processed one by one, tightly coupled to each other and difficult to dispatch on multiple threads because of interdependencies.
@@ -35,7 +35,7 @@ This often results in poor scaling with the number of entities because these com
 Side note: this post is not a rant against OOP (there are enough forum wars on the topic all over the interwebs). I am convinced it is possible to write good performing OOP but I am also convinced it is hard and requires a lot of experience. ECS recipes on the other hand are super easy to learn and offer good performance by default.
 {:.message}
 
-![](../../assets/img/blog/ecs_deep_dive/3.png)
+[![](../../assets/img/blog/ecs_deep_dive/3.png)](../../assets/img/blog/ecs_deep_dive/3b.jpg)
 
 Compared to this container approach, [ECS](https://en.wikipedia.org/wiki/Entity%E2%80%93component%E2%80%93system) is an architectural pattern which introduces the following concepts:
 * an **entity** is just an id, which sole purpose is to group components logically together
@@ -114,7 +114,7 @@ public class RotationSpeedComponent : ComponentDataWrapper<RotationSpeed> { }
 Archetypes are at the very core of Unity's ECS implementation.
 They are responsible for storing and organizing the components so that systems can query and work on those in the most efficient way.
 
-![](../../assets/img/blog/ecs_deep_dive/4.png)
+[![](../../assets/img/blog/ecs_deep_dive/4.png)](../../assets/img/blog/ecs_deep_dive/4b.jpg)
 
 Entity/component frameworks find their roots in the application of the [*composition over inheritance*](https://en.wikipedia.org/wiki/Composition_over_inheritance) principle; in Unity ECS, this composition finds its realization at the archetypes level.
 
@@ -144,7 +144,7 @@ The framework will also be responsible for moving entities between archetypes wh
 
 We just said that archetypes are made of arrays... that was a lie.
 
-![](../../assets/img/blog/ecs_deep_dive/8.png)
+[![](../../assets/img/blog/ecs_deep_dive/8.png)](../../assets/img/blog/ecs_deep_dive/8b.jpg)
 
 The fact that an array operates on a single contiguous block of memory is highly interesting but comes with some downsides.
 
@@ -160,7 +160,7 @@ This provides a good tradeoff; insertion never requires a full copy of all exist
 
 ### Systems
 
-![](../../assets/img/blog/ecs_deep_dive/5.png)
+[![](../../assets/img/blog/ecs_deep_dive/5.png)](../../assets/img/blog/ecs_deep_dive/5b.jpg)
 
 Systems transform data. They implement the logic that modifies the components.
 
@@ -173,7 +173,7 @@ In order to do so, systems have to declare what components they operate on by pe
 
 Systems do not work on archetypes immediately. It would be tedious to declare the exhaustive list of archetypes to work with. Instead, systems describe their requirements as groups; each group being a query on archetypes which returns the matching components (from possibly multiple archetypes) under a unified view.
 
-![](../../assets/img/blog/ecs_deep_dive/6.png)
+[![](../../assets/img/blog/ecs_deep_dive/6.png)](../../assets/img/blog/ecs_deep_dive/6b.jpg)
 
 In the picture above, the system shown will operate on 2 groups.
 
@@ -222,7 +222,7 @@ class PositionToRigidbodySystem : ComponentSystem
 
 #### Subtractive components & tags components
 
-![](../../assets/img/blog/ecs_deep_dive/7.png)
+[![](../../assets/img/blog/ecs_deep_dive/7.png)](../../assets/img/blog/ecs_deep_dive/7b.jpg)
 
 Sometimes, you want to specifically exclude some archetypes based on the presence of some component (e.g. a damage system doesn't need to process entities that have an invincibility component whatever other components they possess).
 Subtractive components are meant to exactly solve this; they allow to exclude some archetypes from a query by specifying which components must not be part of the result set.
@@ -242,7 +242,7 @@ namespace Samples.Boids
 
 #### Shared Components
 
-![](../../assets/img/blog/ecs_deep_dive/9.png)
+[![](../../assets/img/blog/ecs_deep_dive/9.png)](../../assets/img/blog/ecs_deep_dive/9b.jpg)
 
 Maintaining a strict order for the entities would be costly and not necessarily desirable or helpful.
 However some form of grouping can be beneficial when entities share some values and could benefit from this sharing (memory-wise or for performance reasons). For example, grouping entities which share the same mesh and material can help the renderer perform more optimally by batching draw calls dynamically.
@@ -251,7 +251,7 @@ Shared components to the rescue!
 
 Whenever you add a shared component to an entity, entities will be grouped per chunk, so that all entities in a given chunk share the same value for this shared component.
 
-![](../../assets/img/blog/ecs_deep_dive/10.png)
+[![](../../assets/img/blog/ecs_deep_dive/10.png)](../../assets/img/blog/ecs_deep_dive/10b.jpg)
 
 Since all entities in a given chunk share the same value, it is not necessary to store the component once per entity; it can be stored once per chunk (to be more correct, the chunk stores the index to the `SharedComponentData`, so multiple chunks can point to the same data).
 
@@ -280,7 +280,7 @@ public struct MeshInstanceRenderer : ISharedComponentData
 
 ### Worlds
 
-![](../../assets/img/blog/ecs_deep_dive/11.png)
+[![](../../assets/img/blog/ecs_deep_dive/11.png)](../../assets/img/blog/ecs_deep_dive/11b.jpg)
 
 Worlds are for isolation.
 Each `World` contains an `EntityManager` and a set of `ComponentSystems`.
@@ -331,9 +331,9 @@ And it combines the values of these components in a `LocalToWorld` system state 
     }
 ```
 
-![](../../assets/img/blog/ecs_deep_dive/13.png)
+[![](../../assets/img/blog/ecs_deep_dive/13.png)](../../assets/img/blog/ecs_deep_dive/13b.jpg)
 
-![](../../assets/img/blog/ecs_deep_dive/14.png)
+[![](../../assets/img/blog/ecs_deep_dive/14.png)](../../assets/img/blog/ecs_deep_dive/14b.jpg)
 
 Now, let's check the different cases which can occur:
 - `Position`/`Rotation`/`Scale` exist and `LocalToWorld` does not => this is a new entity. `TransformSystem` can do whatever initial setup is required for this entity, then add the `LocalToWorld` component to it.
@@ -342,7 +342,7 @@ Now, let's check the different cases which can occur:
 
 ### Detecting changes
 
-![](../../assets/img/blog/ecs_deep_dive/12.png)
+[![](../../assets/img/blog/ecs_deep_dive/12.png)](../../assets/img/blog/ecs_deep_dive/12b.jpg)
 
 System State Components do solve the addition/deletion detection problem nicely.
 But what about tracking changes to component values?
@@ -364,14 +364,14 @@ var chunkRotationsChanged = ChangeVersionUtility.DidAddOrChange(
 
 While already a good step towards better performing games, the ECS is only one part of the DOTS.
 
-![](../../assets/img/blog/ecs_deep_dive/15.png)
+[![](../../assets/img/blog/ecs_deep_dive/15.png)](../../assets/img/blog/ecs_deep_dive/15b.jpg)
 
 Regular component systems run on the main thread, and add up to everything already sitting on this busy thread.
 This does not make good use of the ever increasing number of cores in your processor which are sitting idle.
 
 Component Systems (CS) can work hand in hand with Unity C# job system: please welcome the Job Component Systems (JCS).
 
-![](../../assets/img/blog/ecs_deep_dive/16.png)
+[![](../../assets/img/blog/ecs_deep_dive/16.png)](../../assets/img/blog/ecs_deep_dive/16b.jpg)
 
 JCS do run on the main thread but they appear much shorter than their CS counterparts; that's because all they do, is schedule jobs to be performed on worker threads.
 
@@ -380,7 +380,7 @@ The scheduler is smart enough to prevent race conditions. As long as the compone
 As we said before, order within a group is not important; this allows for another nice optimization.
 A system update can now see its work being sliced and dispatched on multiple worker threads. Yeah!
 
-![](../../assets/img/blog/ecs_deep_dive/17.png)
+[![](../../assets/img/blog/ecs_deep_dive/17.png)](../../assets/img/blog/ecs_deep_dive/17b.jpg)
 
 Extreme caution should be observed when mixing CS and JCS: all structural changes have hard sync points (e.g. entity creation/destruction, component addition/removal, ...). This means that whenever one of these events occur (on the main thread), all jobs scheduled by JCS will have to be completed before performing that change, resulting in a huge stall.
 
