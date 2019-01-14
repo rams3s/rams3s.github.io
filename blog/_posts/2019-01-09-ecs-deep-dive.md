@@ -5,6 +5,11 @@ description: Notes taken during ECS Deep Dive presentation.
 tag: [unity3d,ecs,performance,c#]
 ---
 
+**Updates**  
+2019-01-14: following @tertle suggestion on Unity forums, I removed the code sample using `GetComponentDataArray()`. This function gives the impression you're working with an array while it really is not the case. Its functionality should soon be plutoed. I also added a link to his [blog post](https://www.bovinelabs.com/ecs-hello-world/) about chunk iteration.  
+2019-01-09: removed ComponentGroup injection example as injection is on its way out.
+{:.message}
+
 Just before the holiday season, we (at [Fishing Cactus](https://www.fishingcactus.com)) had the great pleasure to welcome our former colleague [Fabrice Lété](https://www.linkedin.com/in/letef/), now software engineer at Unity Technologies, for a talk in which he described what he and his team are currently working on: the brand new and shiny **Unity Entity-Component-System (ECS) framework**.
 
 This blog post is a summary of the notes I took, *slightly* reordered and annotated with some code samples (copied from the official [ECS Samples repository](https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation/index.md)) to illustrate how these concepts translate into C#.
@@ -12,10 +17,6 @@ This blog post is a summary of the notes I took, *slightly* reordered and annota
 ![](../../assets/img/blog/ecs_deep_dive/1.png)
 
 This talk was also given during Unite Los Angeles 2018 and the slides are available here: <https://docs.google.com/presentation/d/1vxE61D_N79cvgUI3eIocF2n4rn04wjgRRq00ugyoB1M/edit?usp=sharing>
-
-Both this presentation and this blog post are **not an introduction to ECS**.
-They are more an overview of how ECS works internally, allowing you to make more informed decisions about how to use it efficiently.
-{:.message}
 
 * list
 {:toc}
@@ -176,7 +177,7 @@ Systems do not work on archetypes immediately. It would be tedious to declare th
 
 In the picture above, the system shown will operate on 2 groups.
 
-Sample code illustrating how to declare and use a `ComponentGroup`:
+Sample code illustrating how to declare and use a `ComponentGroup` to iterate over chunks:
 
 ```c#
 class PositionToRigidbodySystem : ComponentSystem
@@ -185,16 +186,36 @@ class PositionToRigidbodySystem : ComponentSystem
 
     protected override void OnCreateManager(int capacity)
     {
-        m_Group = GetComponentGroup(typeof(Position), typeof(Rigidbody)));
+        m_Group = GetComponentGroup(new EntityArchetypeQuery
+        {
+            All = new[] {
+                ComponentType.Create<Position>(),
+                ComponentType.Create<RigidBody>()
+                }
+        });
     }
 
     protected override void OnUpdate()
     {
-        var positions = m_Group.GetComponentDataArray<Position>();
-        var rigidbodies = m_Group.GetComponentArray<Rigidbody>();
+        var positionTypeReadOnly = GetArchetypeChunkComponentType<Position>(true);
+        var rigidbodyTypeRW = GetArchetypeChunkComponentType<Rigidbody>();
 
-        for (int i = 0; i != positions.Length; i++)
-            rigidbodies[i].position = positions[i].Value;
+        NativeArray<ArchetypeChunk> chunks =
+            m_Group.CreateArchetypeChunkArray(Allocator.TempJob);
+
+        for (var chunkIndex = 0; chunkIndex < chunks.Length; chunkIndex++)
+        {
+            ArchetypeChunk chunk = chunks[chunkIndex];
+            NativeArray<Position> rotations = chunk.GetNativeArray(positionTypeReadOnly);
+            NativeArray<Rigidbody> rigidbodies = chunk.GetNativeArray(rigidbodyTypeRW);
+
+            for (var i = 0; i < chunk.Count; i++)
+            {
+                rigidbodies[i].position = positions[i].Value;
+            }
+        }
+
+        chunks.Dispose();
     }
 }
 ```
@@ -390,6 +411,9 @@ public class RotationSpeedSystem : JobComponentSystem
 }
 ```
 
+Please note it is also possible to iterate over chunks in jobs using `IJobChunk`.
+A good example can be found [here](https://www.bovinelabs.com/ecs-hello-world/).
+
 # THE END
 
 That's it for today. I hope you did learn a thing or 2 and that you enjoyed this post as much as I enjoyed attending this talk.
@@ -403,6 +427,7 @@ If you have any question and/or any feedback (or just want to say hi), please do
 # Further reading
 
 - <https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation/index.md>
+- <https://www.bovinelabs.com/ecs-hello-world/>
 
 <!--
 # Questions for Fabrice
