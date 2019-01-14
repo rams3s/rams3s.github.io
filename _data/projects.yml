@@ -55,10 +55,26 @@
 
   projects:
 
-  # - name: Wormworld Saga
-  #   platforms: PS4, Switch, Win, XB1
-  #   engine: Unity
-  #   date: 2019
+  - name: Ary and the Secret of Seasons
+    platforms: PS4, Switch, Win, XB1
+    engine: Unity
+    date: 2020(WIP)
+    img: ary.jpg
+    external_url: https://ary-game.com/
+    url_txt: Website
+
+  - name: Wormworld Saga
+    platforms: PS4, Switch, Win, XB1
+    engine: Unity
+    date: 2020(WIP)
+
+  - name: Nanotale
+    platforms: Win, macOS, Linux
+    engine: Unity
+    date: 2019(WIP)
+    img: nanotale.jpg
+    external_url: https://store.steampowered.com/app/944920/Nanotale__Typing_Chronicles/
+    url_txt: Website
 
   - name: Shift Quantum
     platforms: PS4, Switch, Win, XB1
