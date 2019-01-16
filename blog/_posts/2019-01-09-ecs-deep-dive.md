@@ -158,6 +158,10 @@ Indeed, when the reserved capacity is exhausted, the system needs to allocate a 
 In order to alleviate this last issue, archetypes are not working with arrays but with linked lists of 16KB chunks, each of these chunk containing arrays for the different types of components.
 This provides a good tradeoff; insertion never requires a full copy of all existing items and we still retain good cache coherency inside chunks.
 
+For example, if an entity is composed of 10 components, each chunk of its archetype will contain 10 arrays, 1 per component type.
+
+This also means that, depending on the number of components in the archetype, a chunk will therefore be able to store more or less entities.
+
 ### Systems
 
 [![](../../assets/img/blog/ecs_deep_dive/5.png)](../../assets/img/blog/ecs_deep_dive/5b.jpg)
